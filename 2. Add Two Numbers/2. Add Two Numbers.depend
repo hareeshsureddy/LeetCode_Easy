@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1746732252 source:d:\github\leetcode_easy\2. add two numbers\main.c
+	<stdio.h>
+	<stdlib.h>
+
