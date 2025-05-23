@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1747538952 source:d:\github\leetcode_easy\000\main.c
+	"stdio.h"
+	"stdint.h"
+	"string.h"
+	"math.h"
+	"stdlib.h"
+	"stdbool.h"
+
