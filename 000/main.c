@@ -4,6 +4,53 @@
 #include "math.h"
 #include "stdlib.h"
 #include "stdbool.h"
+//2131. Longest Palindrome by Concatenating Two Letter Words
+int longestPalindrome_1(char** words, int wordsSize) {
+    int map[26][26]={0};
+    int result=0;
+    bool same_char=true;
+    for( int i=0;i<wordsSize;i++){
+        int a=(words[i][0]-'a');
+        int b=(words[i][1]-'a');
+        if(map[b][a]){
+            map[b][a]--;
+            result+=4;
+        }
+        else{
+            map[a][b]++;
+        }
+    }
+    for (int i=0;i<26;i++){
+            if(map[i][i]>0){
+                result+=2;
+                break;
+            }
+    }
+    return result;
+}
+int longestPalindrome(char** words, int wordsSize) {
+    int map[276]={0};
+    int result=0;
+    bool same_char=true;
+    for( int i=0;i<wordsSize;i++){
+        int Org_index=(words[i][0]-'a')*10+(words[i][1]-'a');
+        int Rev_index=(words[i][1]-'a')*10+(words[i][0]-'a');
+        if(map[Rev_index]){
+            map[Rev_index]--;
+            result+=4;
+        }
+        else{
+            map[Org_index]++;
+        }
+    }
+    for (int i=0;i<26;i++){
+            if(map[i*11]>0){
+                result+=2;
+                break;
+            }
+    }
+    return result;
+}
 int minOperations(char* s) {
     int16_t len=strlen(s);
     int16_t result=0;
@@ -68,22 +115,32 @@ int countCharacters(char** words, int wordsSize, char* chars) {
 int main()
 {
     {
+      char *words[]={"yt","yn","ty","ny","nt","nt","ty","ty","nt","nt","ty","tn","tn","nt","ny","yn","nt","nt","ty","ty","yt","tn","tn","nt","ny","ny","nt","tn","yt","ty","yn","ty","tn","ty","tn","ty","ty","ny","ty","nt","ty","tn","ny","yn","tn","ty","ny","yn","yt","ty","nt","nt","tn","nt","ny","yn","ty","yt","ty","ny","ny","yt","nt","tn","yn","nt","yn","tn","ty","nt","yt","yt","tn","nt","yt","yn","tn","ty","ny","ny","nt","tn","yn","yt","nt","ny","nt","nt","yt","tn","tn","yt","tn","nt","yt","yt","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm"};
+       printf("%d",longestPalindrome_1(words,sizeof(words)/sizeof(words[0])));
+       printf(" %d",sizeof(words[0]));
+       return 0;
+    }
+    {
     char *s1="101010100101010101011";
     printf("minOperations %d",minOperations(s1));
     return 0;
     }
+    {
     char *path="NES";
     if(isPathCrossing(path))
         printf("True\n");
     else
         printf("False\n");
-    char *s[]={"cat","bt","hat","tree"};
-    /*{
+    }
+    {
     int *ptr[10];
      printf("\nSizeof int *ptr[10]--> %lld",sizeof(ptr));
      printf(" In this case ptr is a array of 10 pointers pointing to intgers ");
-    }*/
+    }
+    {
     char *c="atach";
+    char *s[]={"cat","bt","hat","tree"};
     printf("countCharacters %d\n",countCharacters(s,4,c));
     return 0;
+    }
 }
