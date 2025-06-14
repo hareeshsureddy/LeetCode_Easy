@@ -4,11 +4,41 @@
 #include "math.h"
 #include "stdlib.h"
 #include "stdbool.h"
-//2131. Longest Palindrome by Concatenating Two Letter Words
-int longestPalindrome_1(char** words, int wordsSize) {
+#include "ctype.h"
+
+bool isPalindrome(char* s) {//125. Valid Palindrome
+    int len=strlen(s);
+    int i=0,j=len-1;
+    while(s[i]!='\0'){
+        s[i]=(s[i]-'A'>=32)?(s[i]-32):s[i];
+        i++;
+    }
+    printf("%s \n",s);
+    i=0;
+    while(i<j){
+        while(i<len && !(isalnum(s[i])) ){
+                i++;
+        }
+        while(j>=0 && !(isalnum(s[j])) ){
+                j--;
+        }
+        if(i<len && j>=0 && s[j]!=s[i]) {
+            printf("!= %d %d\n",i, j);
+            printf("!= %c %c\n",s[i], s[j]);
+            return false;
+        }
+        else
+        {
+            printf("%c %c\n",s[j], s[j]);
+            i++;
+            j--;
+        }
+    }
+    return true;
+}
+int longestPalindrome_1(char** words, int wordsSize) {//2131. Longest Palindrome by Concatenating Two Letter Words
     int map[26][26]={0};
     int result=0;
-    bool same_char=true;
     for( int i=0;i<wordsSize;i++){
         int a=(words[i][0]-'a');
         int b=(words[i][1]-'a');
@@ -31,7 +61,6 @@ int longestPalindrome_1(char** words, int wordsSize) {
 int longestPalindrome(char** words, int wordsSize) {
     int map[276]={0};
     int result=0;
-    bool same_char=true;
     for( int i=0;i<wordsSize;i++){
         int Org_index=(words[i][0]-'a')*10+(words[i][1]-'a');
         int Rev_index=(words[i][1]-'a')*10+(words[i][0]-'a');
@@ -63,8 +92,7 @@ int minOperations(char* s) {
     }
     return result;
 }
-//1496. Path Crossing
-bool isPathCrossing(char* path) {
+bool isPathCrossing(char* path) {//1496. Path Crossing
     int16_t len=strlen(path);
     int16_t x=0,y=0;
     int16_t (*map)[2]=calloc(len+1,sizeof(int16_t*));
@@ -86,8 +114,7 @@ bool isPathCrossing(char* path) {
     }
     return false;
 }
-//1160. Find Words That Can Be Formed by Characters
-int countCharacters(char** words, int wordsSize, char* chars) {
+int countCharacters(char** words, int wordsSize, char* chars) {//1160. Find Words That Can Be Formed by Characters
     int map[26]={0};
     int len=strlen(chars);
     for (int i=0;i<len;i++){
@@ -115,9 +142,18 @@ int countCharacters(char** words, int wordsSize, char* chars) {
 int main()
 {
     {
+        char s[]="A man, a plan, a canal: Panama";
+        if(isPalindrome(s))
+            printf("Its an a valid palindrome");
+        else{
+            printf("Its not a valid palindrome");
+        }
+            return 0;
+    }
+    {
       char *words[]={"yt","yn","ty","ny","nt","nt","ty","ty","nt","nt","ty","tn","tn","nt","ny","yn","nt","nt","ty","ty","yt","tn","tn","nt","ny","ny","nt","tn","yt","ty","yn","ty","tn","ty","tn","ty","ty","ny","ty","nt","ty","tn","ny","yn","tn","ty","ny","yn","yt","ty","nt","nt","tn","nt","ny","yn","ty","yt","ty","ny","ny","yt","nt","tn","yn","nt","yn","tn","ty","nt","yt","yt","tn","nt","yt","yn","tn","ty","ny","ny","nt","tn","yn","yt","nt","ny","nt","nt","yt","tn","tn","yt","tn","nt","yt","yt","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm","mm"};
        printf("%d",longestPalindrome_1(words,sizeof(words)/sizeof(words[0])));
-       printf(" %d",sizeof(words[0]));
+       printf(" %lld",sizeof(words[0]));
        return 0;
     }
     {
