@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1752203665 source:d:\github\leetcode_easy\2423. remove letter to equalize frequency\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<stdint.h>
+
